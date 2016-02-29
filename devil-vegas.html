@@ -1,1 +1,127 @@
-# devil-vegas
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Devil Went Down To Vegas</title>
+  <script type="text/javascript" src="js/phaser.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <style type="text/css">
+      body {
+        margin: 0;
+        /*background-color: grey;*/
+      }
+      #my_game {
+        width: 100%;
+        margin: 20px 0px;
+      }
+      #my_game canvas {
+        margin: 0 auto;
+        border: 10px darkgray solid;
+        height: 600px;
+        width: 800px;
+      }
+      #intro {
+        display: block ;
+      }
+      #container{
+        width: 100%;
+        position: absolute;
+      }
+      #title {
+        background-image: url("./assets/Title1.png");
+        height: 320px;
+        width: 800px;
+        position: relative;
+        margin: 0px auto;
+    }
+      #titleF {
+        background-image: url("./assets/Title2.png");
+        height: 430px;
+        width: 800px;
+        position: relative;
+        margin: 0px auto;
+    }
+      #startImage {
+        background-image: url("./assets/start.png");
+        height: 100px;
+        width: 800px;
+        position: relative;
+        margin: 0 auto;
+        background-repeat: no-repeat;
+      }
+       #introMovie{
+        margin: 0 auto;
+        display: block;
+      }
+      .hidden {
+        display: none;
+      }
+  </style>
+</head>
+
+<body>
+
+    <!-- show this div onload hide it on click -->
+    <!-- <div id="my_game_intro"></div>  -->
+
+    <div id="my_game">
+        <video id="introMovie" width="800" height="600" controls autoplay>
+            <source src="./assets/Homecoming 2.ogg" type="video/ogg">
+            <source src="./assets/Homecoming 2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div id="container" class="hidden">
+            <div id="titleF"></div>
+            <div id="startImage"></div>
+        </div>
+    </div>
+
+<script type="text/javascript ">
+    var $gameDiv = $("#my_game");
+    var $canvas = $('<canvas id="intro" class="title">');
+    setTimeout(function(){
+        $("#introMovie").css("display","none")
+        $("#introMovie").addClass( "hidden");
+        $("#container").removeClass( "hidden");
+        $canvas.appendTo($gameDiv[0]).css('background-image', 'url(./assets/StartScreen.png)');
+    }, 28000);
+    var game = document.getElementById('my_game');
+    game.onclick = function(){
+        console.log("clicked")
+        // clearInterval(titleInterval);
+        // $.loadScript('./js/stage1.js');
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "./js/stage1.js";
+        document.getElementsByTagName("head")[0].appendChild(script);
+        return false;
+    };
+    // var titleInterval = setInterval(function(){
+    //         var title = document.getElementById("title");
+    //         var titleF = document.getElementById("titleF");
+    //         if(title){
+    //             title.setAttribute("id", "titleF");
+    //         } else if(titleF){
+    //             titleF.setAttribute("id", "title");
+    //         } else{
+    //             console.log("error");
+    //         }
+    //  }, 3000);
+    $(function ()
+        {
+           flicker();
+           function flicker ()
+           {
+               $('#startImage').fadeIn(650, function ()
+               {
+                   $('#startImage').fadeOut(650, function ()
+                   {
+                      setTimeout(flicker, 150);
+                   });
+               });
+           }
+        });
+</script>
+
+</body>
+</html>
